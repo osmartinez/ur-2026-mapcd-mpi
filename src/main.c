@@ -22,8 +22,9 @@ static int validate_result(const int *a, const int *b, const int *c, int n)
 
 int main(int argc, char **argv)
 {
+    printf("Iniciando programa MPI...\n");
     int rank, size;
-    int n = 17; /* valor por defecto, no divisible por muchos tamaños */
+    int n = 500000; 
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -32,6 +33,8 @@ int main(int argc, char **argv)
     if (argc > 1) {
         n = atoi(argv[1]);
     }
+
+    printf("[rank %d] Argumento n: %d\n", rank, n);
 
     if (n <= 0) {
         if (rank == 0) {
@@ -118,12 +121,6 @@ int main(int argc, char **argv)
 
     if (rank == 0) {
         int ok = validate_result(a, b, c, n);
-
-        int print_n = (n < 10) ? n : 10;
-        printf("\n[root] Primeros %d resultados de C = A + B:\n", print_n);
-        for (int i = 0; i < print_n; i++) {
-            printf("  C[%d] = %d + %d = %d\n", i, a[i], b[i], c[i]);
-        }
 
         printf("\n[root] Validación: %s\n", ok ? "OK (resultado correcto)" : "ERROR (resultado incorrecto)");
 

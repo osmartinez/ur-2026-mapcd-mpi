@@ -2,7 +2,7 @@ APP_NAME=vector_sum_mpi
 SRC=src/main.c
 BIN=bin/$(APP_NAME)
 NP?=4
-N?=17
+N?=200000
 
 .PHONY: build run run-mpi docker-build docker-run clean
 

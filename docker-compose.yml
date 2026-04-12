@@ -1,8 +1,58 @@
 services:
-  mpi-vector-sum:
+  master:
     build:
       context: .
       dockerfile: Dockerfile
     image: vector_sum_mpi:latest
-    container_name: mpi-vector-sum
-    command: ["mpirun", "--allow-run-as-root", "-np", "4", "/app/bin/vector_sum_mpi", "17"]
+    container_name: mpi-master
+    hostname: master
+    environment:
+      - ROLE=master
+      - WORKERS=worker-1,worker-2,worker-3
+      - N=${N:-200000}
+    depends_on:
+      - worker-1
+      - worker-2
+      - worker-3
+    networks:
+      - mpi-net
+
+  worker-1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: vector_sum_mpi:latest
+    container_name: mpi-worker-1
+    hostname: worker-1
+    environment:
+      - ROLE=worker
+    networks:
+      - mpi-net
+
+  worker-2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: vector_sum_mpi:latest
+    container_name: mpi-worker-2
+    hostname: worker-2
+    environment:
+      - ROLE=worker
+    networks:
+      - mpi-net
+
+  worker-3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: vector_sum_mpi:latest
+    container_name: mpi-worker-3
+    hostname: worker-3
+    environment:
+      - ROLE=worker
+    networks:
+      - mpi-net
+
+networks:
+  mpi-net:
+    driver: bridge
