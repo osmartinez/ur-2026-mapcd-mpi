@@ -1,0 +1,8 @@
+services:
+  mpi-vector-sum:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: vector_sum_mpi:latest
+    container_name: mpi-vector-sum
+    command: ["mpirun", "--allow-run-as-root", "-np", "4", "/app/bin/vector_sum_mpi", "17"]
