@@ -9,7 +9,7 @@ services:
     environment:
       - ROLE=master
       - WORKERS=worker-1,worker-2,worker-3
-      - N=${N:-200000}
+      - N=${N:-1000000}
     depends_on:
       - worker-1
       - worker-2
@@ -52,6 +52,7 @@ services:
       - ROLE=worker
     networks:
       - mpi-net
+
 
 networks:
   mpi-net:

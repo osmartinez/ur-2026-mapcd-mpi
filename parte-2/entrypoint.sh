@@ -2,7 +2,7 @@
 set -e
 
 ROLE="${ROLE:-worker}"
-N="${N:-200000}"
+N="${N}"
 HOSTFILE="/app/hostfile"
 
 if [ "$ROLE" = "worker" ]; then

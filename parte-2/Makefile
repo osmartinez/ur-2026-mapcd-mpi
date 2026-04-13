@@ -8,7 +8,7 @@ N?=200000
 
 build:
 	@mkdir -p bin
-	mpicc -O2 -Wall -Wextra -std=c11 $(SRC) -o $(BIN)
+	mpicc -O2 -Wall -Wextra -std=c11 $(SRC) -o $(BIN) -lm
 
 run: build
 	$(BIN) $(N)
