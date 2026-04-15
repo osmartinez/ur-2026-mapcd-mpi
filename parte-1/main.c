@@ -50,26 +50,11 @@ int main(int argc, char** argv)
         printf("Suma global = %d\n", suma_global);
     }
 
-    int* datos_recogidos = NULL;
-
-    if (rango == 0) {
-        datos_recogidos = (int*)malloc(N * sizeof(int));
-    }
-
-    // TODO: Reunir los datos locales en el proceso raíz
-
-    if (rango == 0) {
-        printf("Datos reunidos: ");
-        for (int i = 0; i < N; i++) {
-            printf("%d ", datos_recogidos[i]);
-        }
-        printf("\n");
-    }
+ 
 
     free(datos_locales);
     if (rango == 0) {
         free(datos);
-        free(datos_recogidos);
     }
 
     // TODO: Finalizar MPI
